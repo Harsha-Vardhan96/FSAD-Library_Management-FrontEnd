@@ -1,0 +1,137 @@
+.magic-rings-container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+  z-index: 0;
+  background: #06020c;
+  pointer-events: none;
+  animation: bgFadeIn 1.2s ease forwards;
+}
+
+@keyframes bgFadeIn {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+@keyframes ringAppear {
+  0%   { opacity: 0; transform: scale(0.4); }
+  60%  { opacity: 0.9; transform: scale(1.05); }
+  100% { opacity: 1; transform: scale(1); }
+}
+
+.vignette-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: radial-gradient(ellipse at center, transparent 30%, #06020c 90%);
+  z-index: 10;
+}
+
+.ring-wrapper-left,
+.ring-wrapper-right {
+  position: absolute;
+  top: 50%;
+  width: 0;
+  height: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1;
+}
+
+.ring-wrapper-left {
+  left: -2%;
+  animation: magicFloatLeft 8s infinite ease-in-out alternate;
+}
+
+.ring-wrapper-right {
+  right: -2%;
+  animation: magicFloatRight 10s infinite ease-in-out alternate;
+}
+
+.magic-ring {
+  position: absolute;
+  border-radius: 50%;
+  background: transparent;
+  opacity: 0;
+  mix-blend-mode: screen;
+  pointer-events: none;
+}
+
+/* Left Rings - Purple to Blue */
+.left-ring-1 {
+  width: 40vw; height: 80vh;
+  border: 4px solid rgba(139, 92, 246, 0.6);
+  box-shadow: 0 0 40px rgba(139, 92, 246, 0.8), inset 0 0 40px rgba(139, 92, 246, 0.8);
+  animation: ringAppear 1.2s cubic-bezier(0.22,1,0.36,1) 0.1s both, magicPulse 4s 1.3s infinite ease-in-out alternate;
+}
+.left-ring-2 {
+  width: 55vw; height: 110vh;
+  border: 3px solid rgba(168, 85, 247, 0.5);
+  box-shadow: 0 0 50px rgba(168, 85, 247, 0.7), inset 0 0 50px rgba(168, 85, 247, 0.7);
+  animation: ringAppear 1.2s cubic-bezier(0.22,1,0.36,1) 0.25s both, magicPulse 4.5s 1.45s infinite ease-in-out alternate;
+}
+.left-ring-3 {
+  width: 70vw; height: 140vh;
+  border: 2px solid rgba(192, 38, 211, 0.4);
+  box-shadow: 0 0 60px rgba(192, 38, 211, 0.6), inset 0 0 60px rgba(192, 38, 211, 0.6);
+  animation: ringAppear 1.2s cubic-bezier(0.22,1,0.36,1) 0.4s both, magicPulse 5s 1.6s infinite ease-in-out alternate;
+}
+.left-ring-4 {
+  width: 85vw; height: 170vh;
+  border: 1px solid rgba(59, 130, 246, 0.3);
+  box-shadow: 0 0 70px rgba(59, 130, 246, 0.5), inset 0 0 70px rgba(59, 130, 246, 0.5);
+  animation: ringAppear 1.2s cubic-bezier(0.22,1,0.36,1) 0.55s both, magicPulse 5.5s 1.75s infinite ease-in-out alternate;
+}
+
+/* Right Rings - Blue to Purple */
+.right-ring-1 {
+  width: 40vw; height: 80vh;
+  border: 4px solid rgba(59, 130, 246, 0.6);
+  box-shadow: 0 0 40px rgba(59, 130, 246, 0.8), inset 0 0 40px rgba(59, 130, 246, 0.8);
+  animation: ringAppear 1.2s cubic-bezier(0.22,1,0.36,1) 0.15s both, magicPulse 4.2s 1.35s infinite ease-in-out alternate;
+}
+.right-ring-2 {
+  width: 55vw; height: 110vh;
+  border: 3px solid rgba(139, 92, 246, 0.5);
+  box-shadow: 0 0 50px rgba(139, 92, 246, 0.7), inset 0 0 50px rgba(139, 92, 246, 0.7);
+  animation: ringAppear 1.2s cubic-bezier(0.22,1,0.36,1) 0.3s both, magicPulse 4.7s 1.5s infinite ease-in-out alternate;
+}
+.right-ring-3 {
+  width: 70vw; height: 140vh;
+  border: 2px solid rgba(168, 85, 247, 0.4);
+  box-shadow: 0 0 60px rgba(168, 85, 247, 0.6), inset 0 0 60px rgba(168, 85, 247, 0.6);
+  animation: ringAppear 1.2s cubic-bezier(0.22,1,0.36,1) 0.45s both, magicPulse 5.2s 1.65s infinite ease-in-out alternate;
+}
+.right-ring-4 {
+  width: 85vw; height: 170vh;
+  border: 1px solid rgba(192, 38, 211, 0.3);
+  box-shadow: 0 0 70px rgba(192, 38, 211, 0.5), inset 0 0 70px rgba(192, 38, 211, 0.5);
+  animation: ringAppear 1.2s cubic-bezier(0.22,1,0.36,1) 0.6s both, magicPulse 5.7s 1.8s infinite ease-in-out alternate;
+}
+
+@keyframes magicPulse {
+  0% {
+    opacity: 0.5;
+    transform: scale(0.97);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1.03);
+  }
+}
+
+@keyframes magicFloatLeft {
+  0% { transform: translateY(-50%) rotate(-2deg); }
+  100% { transform: translateY(-50%) rotate(2deg); }
+}
+
+@keyframes magicFloatRight {
+  0% { transform: translateY(-50%) rotate(2deg); }
+  100% { transform: translateY(-50%) rotate(-2deg); }
+}
