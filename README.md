@@ -1,16 +1,83 @@
-# React + Vite
+# Library Management System - React Frontend
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+## Project Description
+The Library Management System Frontend is a modern, responsive single-page web application built with React 19, Vite, Tailwind CSS, and Framer Motion. It provides role-based user interfaces for both general users (resource search, viewing, filtering, downloading) and system administrators (resource management, analytics, user access control).
 
-Currently, two official plugins are available:
+---
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## Architecture
 
-## React Compiler
+```
+[ Browser / Client ]
+         |
+         v
++-------------------------------------------------------+
+|  Nginx Web Server (Port 80) / Vite Dev Server (5173)  |
+|                                                       |
+|  [ React Router ]  -> User Routes & Protected Routes  |
+|  [ Components ]    -> Navbar, Sidebar, Resource Cards |
+|  [ Pages ]         -> Login, Signup, Dashboard, Admin |
+|  [ API Client ]    -> Axios/Fetch to Spring Boot API |
++-------------------------------------------------------+
+         |
+         | HTTP / REST API (JWT Header)
+         v
+[ Spring Boot Backend API ] (e.g. http://localhost:8080)
+```
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+---
 
-## Expanding the ESLint configuration
+## Local Setup
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+### Prerequisites
+- Node.js 20+
+- npm 10+
+- Running Spring Boot Backend API (or mock server)
+
+### Environment Variables
+Copy `.env.example` to `.env`:
+
+```env
+VITE_API_BASE_URL=http://localhost:8080
+```
+
+---
+
+## Run Instructions
+
+### Development Server
+```bash
+# Install dependencies
+npm install
+
+# Start Vite dev server
+npm run dev
+```
+Open `http://localhost:5173` in your browser.
+
+### Production Build & Preview
+```bash
+# Create optimized production build
+npm run build
+
+# Preview production build locally
+npm run preview
+```
+
+### Docker Container Run
+```bash
+# Build production Docker image
+docker build -t library-frontend .
+
+# Run container on port 80
+docker run -p 80:80 library-frontend
+```
+
+---
+
+## Deployment Information
+
+### Production Web Server Configuration
+- **Multi-stage Docker Build**: Node 20 build stage -> Nginx 1.25 Alpine runtime stage.
+- **Nginx Configuration (`nginx.conf`)**: Configured with SPA client-side route fallback (`try_files $uri $uri/ /index.html;`), Gzip static asset compression, and HTTP 30-day cache headers.
+- **CI/CD Pipeline**: GitHub Actions workflow (`.github/workflows/ci.yml`) installs dependencies (`npm ci`) and verifies clean production builds (`npm run build`) on push/PR.
